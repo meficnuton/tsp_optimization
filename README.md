@@ -275,23 +275,6 @@ than against the optimum.
 
 ---
 
-## Legacy harnesses (`src/_benchmark_*.cpp`)
-
-Earlier one-off harnesses kept for reference; all use the core
-`runBenchmark` and read configs hardcoded in their `main`:
-
-| Harness | What it does |
-|---|---|
-| `_benchmark_1kb.cpp` | Greedy vs one GA config on `data/1kb_testcase`, stdout table |
-| `_benchmark_1kb_csv.cpp` | same, CSV output |
-| `_benchmark_1kb_csv.cpp` / `_benchmark_elitism_csv.cpp` | elitism sweep (0/1/2/5/10/20 × 5 seeds) |
-| `_benchmark_100_200.cpp` | Greedy vs two GA configs on `data/100-200` |
-
-Build them the same way, swapping in the harness `.cpp` (see `tree.md`).
-For anything new, prefer the CSV-driven `_benchmark_ga_configs.cpp`.
-
----
-
 ## Conventions & pitfalls
 
 - **Run from the repo root.** Harnesses read `data/`, `configs/`, and write
