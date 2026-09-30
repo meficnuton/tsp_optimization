@@ -1,0 +1,15 @@
+# ga_config_0-100_final.csv - FINAL champion config for the <100 benchmark.
+#
+# Found by a 2-round exploration sweep (round 1: one-factor-at-a-time around
+# the 150x600 baseline; round 2: combine winners + bigger budget).
+# This SINGLE config beats Greedy(start=0) on all 22 instances of data/0-100
+# (verified 5 seeds, mean-gap criterion: 22/22, GA mean 6.71% vs greedy 24.83%).
+#
+# Knobs that mattered: mutation 0.40 (the GA mutates at most once per child,
+# so a high rate is needed for real exploration), crossover_rate 0.99,
+# elitism 5, and a 200x900 budget (pop 200, 900 generations).
+# Label kept from the sweep so seeds stay reproducible.
+#
+# Format: label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+big_200x900_m40_x99_e5,200,900,0.40,0.99,5,3,OX

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSP Project — UML Class Diagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #020617;
+      min-height: 100vh;
+      padding: 2rem;
+      color: white;
+    }
+    .container { max-width: 1240px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; }
+    .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .pulse-dot { width: 12px; height: 12px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; }
+    .subtitle { color: #94a3b8; font-size: 0.875rem; margin-left: 1.75rem; }
+    .diagram-container {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 1rem;
+      border: 1px solid #1e293b;
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+    svg { width: 100%; min-width: 1050px; display: block; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .card { background: rgba(15, 23, 42, 0.5); border-radius: 0.75rem; border: 1px solid #1e293b; padding: 1.25rem; }
+    .card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .card-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .card-dot.cyan { background: #22d3ee; }
+    .card-dot.emerald { background: #34d399; }
+    .card-dot.violet { background: #a78bfa; }
+    .card-dot.amber { background: #fbbf24; }
+    .card-dot.rose { background: #fb7185; }
+    .card h3 { font-size: 0.875rem; font-weight: 600; }
+    .card ul { list-style: none; color: #94a3b8; font-size: 0.75rem; }
+    .card li { margin-bottom: 0.375rem; }
+    .footer { text-align: center; margin-top: 1.5rem; color: #475569; font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-row">
+        <div class="pulse-dot"></div>
+        <h1>TSP Project — UML Class Diagram</h1>
+      </div>
+      <p class="subtitle">C++ · Strategy pattern for TSP heuristics · TSPLIB parser · benchmark framework · src/</p>
+    </div>
+
+    <div class="diagram-container">
+    <svg viewBox="0 0 1460 1110" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- hollow triangle: inheritance -->
+        <marker id="inh-cyan" markerWidth="16" markerHeight="14" refX="14" refY="7" orient="auto">
+          <polygon points="1,1 14,7 1,13" fill="#020617" stroke="#22d3ee" stroke-width="1.3"/>
+        </marker>
+        <marker id="inh-amber" markerWidth="16" markerHeight="14" refX="14" refY="7" orient="auto">
+          <polygon points="1,1 14,7 1,13" fill="#020617" stroke="#fbbf24" stroke-width="1.3"/>
+        </marker>
+        <!-- open arrow: dependency -->
+        <marker id="dep-violet" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+          <path d="M0,0 L9,5 L0,10" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+        </marker>
+        <marker id="dep-slate" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+          <path d="M0,0 L9,5 L0,10" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+        </marker>
+        <marker id="dep-orange" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+          <path d="M0,0 L9,5 L0,10" fill="none" stroke="#fb923c" stroke-width="1.5"/>
+        </marker>
+        <marker id="dep-amber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+          <path d="M0,0 L9,5 L0,10" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+        </marker>
+        <!-- filled diamond: composition -->
+        <marker id="comp-violet" markerWidth="16" markerHeight="14" refX="14" refY="7" orient="auto">
+          <polygon points="0,7 7,0 15,7 7,14" fill="#a78bfa"/>
+        </marker>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+
+      <!-- background grid -->
+      <rect width="100%" height="100%" fill="url(#grid)"/>
+
+      <!-- ================= PACKAGE BOUNDARY ================= -->
+      <rect x="40" y="800" width="1420" height="210" rx="12" fill="rgba(251, 146, 60, 0.05)" stroke="#fb923c" stroke-width="1" stroke-dasharray="8,4"/>
+      <text x="56" y="824" fill="#fb923c" font-size="10" font-weight="600">src/benchmark — Benchmark Framework</text>
+
+      <!-- ================= RELATIONSHIPS (drawn first, behind boxes) ================= -->
+
+      <!-- inheritance: GreedySolver / GeneticAlgorithm -> TSPSolver -->
+      <line x1="620" y1="270" x2="680" y2="167" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#inh-cyan)"/>
+      <line x1="930" y1="250" x2="820" y2="167" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#inh-cyan)"/>
+
+      <!-- inheritance: GreedyConfig / GeneticAlgorithmConfig -> SolverConfig -->
+      <line x1="1270" y1="240" x2="1272" y2="135" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#inh-amber)"/>
+      <line x1="1305" y1="360" x2="1285" y2="135" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#inh-amber)"/>
+
+      <!-- dependency: GeneticAlgorithmConfig -> GeneticCrossoverType -->
+      <line x1="1305" y1="561" x2="1325" y2="596" stroke="#fbbf24" stroke-width="1.2" stroke-dasharray="4,4" marker-end="url(#dep-amber)"/>
+
+      <!-- dependency: TSPProblem -> MatrixLoader (fromTspFile creates a loader) -->
+      <line x1="240" y1="256" x2="240" y2="307" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4" marker-end="url(#dep-slate)"/>
+
+      <!-- dependency: TSPSolver -> TSPProblem (solve() param) -->
+      <line x1="558" y1="100" x2="424" y2="128" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="4,4" marker-end="url(#dep-violet)"/>
+
+      <!-- dependency: TSPSolver -> SolverConfig (solve() param) -->
+      <line x1="902" y1="112" x2="1156" y2="98" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="4,4" marker-end="url(#dep-violet)"/>
+
+      <!-- dependency: TSPSolver -> SolverResult (solve() return) -->
+      <polyline points="902,134 1145,134 1145,594" fill="none" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="4,4" marker-end="url(#dep-violet)"/>
+
+      <!-- composition: BenchmarkCase *-- TSPProblem -->
+      <polyline points="432,850 432,720 48,720 48,140 54,140" fill="none" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#comp-violet)"/>
+
+      <!-- dependency: BenchmarkSolver -> TSPSolver (raw pointer to strategy) -->
+      <polyline points="330,850 330,838 445,838 445,116 554,116" fill="none" stroke="#fb923c" stroke-width="1.2" stroke-dasharray="4,4" marker-end="url(#dep-orange)"/>
+
+      <!-- dependency: runBenchmark -> BenchmarkResult -->
+      <line x1="1258" y1="906" x2="1234" y2="906" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4" marker-end="url(#dep-slate)"/>
+
+      <!-- ================= CLASS: TSPProblem (data, violet) ================= -->
+      <g>
+        <rect x="60" y="70" width="360" height="185" rx="6" fill="#0f172a"/>
+        <rect x="60" y="70" width="360" height="185" rx="6" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="240" y="88" fill="#a78bfa" font-size="8" font-style="italic" text-anchor="middle">«entity»</text>
+        <text x="240" y="106" fill="white" font-size="12" font-weight="700" text-anchor="middle">TSPProblem</text>
+        <line x1="70" y1="114" x2="410" y2="114" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/>
+        <text x="72" y="128" fill="#94a3b8" font-size="8">- name_: string</text>
+        <text x="72" y="141" fill="#94a3b8" font-size="8">- comment_: string</text>
+        <text x="72" y="154" fill="#94a3b8" font-size="8">- distance_matrix_: vector&lt;vector&lt;double&gt;&gt;</text>
+        <line x1="70" y1="162" x2="410" y2="162" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/>
+        <text x="72" y="176" fill="#cbd5e1" font-size="8">+ fromTspFile(filename): TSPProblem «static»</text>
+        <text x="72" y="189" fill="#cbd5e1" font-size="8">+ dimension(): size_t</text>
+        <text x="72" y="202" fill="#cbd5e1" font-size="8">+ distance(from, to): double</text>
+        <text x="72" y="215" fill="#cbd5e1" font-size="8">+ tourCost(tour): double</text>
+      </g>
+
+      <!-- ================= CLASS: TSPSolver (interface, cyan) ================= -->
+      <g>
+        <rect x="560" y="70" width="340" height="96" rx="6" fill="#0f172a"/>
+        <rect x="560" y="70" width="340" height="96" rx="6" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="730" y="88" fill="#22d3ee" font-size="8" font-style="italic" text-anchor="middle">«interface»</text>
+        <text x="730" y="106" fill="white" font-size="12" font-weight="700" font-style="italic" text-anchor="middle">TSPSolver</text>
+        <line x1="570" y1="114" x2="890" y2="114" stroke="#22d3ee" stroke-width="0.8" opacity="0.5"/>
+        <text x="572" y="128" fill="#cbd5e1" font-size="8">+ solve(problem, config): SolverResult «pure virtual»</text>
+        <text x="572" y="141" fill="#cbd5e1" font-size="8">+ name(): string «pure virtual»</text>
+      </g>
+
+      <!-- ================= CLASS: SolverConfig (abstract, amber) ================= -->
+      <g>
+        <rect x="1160" y="70" width="260" height="64" rx="6" fill="#0f172a"/>
+        <rect x="1160" y="70" width="260" height="64" rx="6" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="1290" y="88" fill="#fbbf24" font-size="8" font-style="italic" text-anchor="middle">«abstract»</text>
+        <text x="1290" y="106" fill="white" font-size="12" font-weight="700" font-style="italic" text-anchor="middle">SolverConfig</text>
+        <line x1="1170" y1="114" x2="1410" y2="114" stroke="#fbbf24" stroke-width="0.8" opacity="0.5"/>
+        <text x="1172" y="128" fill="#cbd5e1" font-size="8">+ ~SolverConfig() «virtual»</text>
+      </g>
+
+      <!-- ================= CLASS: GreedySolver (concrete, emerald) ================= -->
+      <g>
+        <rect x="480" y="270" width="280" height="104" rx="6" fill="#0f172a"/>
+        <rect x="480" y="270" width="280" height="104" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="620" y="288" fill="#34d399" font-size="8" font-style="italic" text-anchor="middle">«solver»</text>
+        <text x="620" y="306" fill="white" font-size="12" font-weight="700" text-anchor="middle">GreedySolver</text>
+        <line x1="490" y1="314" x2="750" y2="314" stroke="#34d399" stroke-width="0.8" opacity="0.5"/>
+        <text x="492" y="328" fill="#cbd5e1" font-size="8">+ solve(problem, config): SolverResult «override»</text>
+        <text x="492" y="341" fill="#cbd5e1" font-size="8">+ name(): string «override»</text>
+        <text x="492" y="354" fill="#34d399" font-size="7" font-style="italic">nearest-neighbor tour from start_vertex</text>
+      </g>
+
+      <!-- ================= CLASS: GeneticAlgorithm (concrete, emerald) ================= -->
+      <g>
+        <rect x="780" y="250" width="300" height="140" rx="6" fill="#0f172a"/>
+        <rect x="780" y="250" width="300" height="140" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="930" y="268" fill="#34d399" font-size="8" font-style="italic" text-anchor="middle">«solver»</text>
+        <text x="930" y="286" fill="white" font-size="12" font-weight="700" text-anchor="middle">GeneticAlgorithm</text>
+        <line x1="790" y1="294" x2="1070" y2="294" stroke="#34d399" stroke-width="0.8" opacity="0.5"/>
+        <text x="792" y="308" fill="#cbd5e1" font-size="8">+ solve(problem, config): SolverResult «override»</text>
+        <text x="792" y="321" fill="#cbd5e1" font-size="8">+ name(): string «override»</text>
+        <text x="792" y="338" fill="#34d399" font-size="7" font-style="italic">OX / PMX permutation-preserving crossover</text>
+        <text x="792" y="351" fill="#34d399" font-size="7" font-style="italic">tournament selection · elitism</text>
+        <text x="792" y="364" fill="#34d399" font-size="7" font-style="italic">swap mutation · seeded RNG (reproducible)</text>
+      </g>
+
+      <!-- ================= CLASS: GreedyConfig (amber) ================= -->
+      <g>
+        <rect x="1160" y="240" width="220" height="76" rx="6" fill="#0f172a"/>
+        <rect x="1160" y="240" width="220" height="76" rx="6" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="1270" y="258" fill="#fbbf24" font-size="8" font-style="italic" text-anchor="middle">«config»</text>
+        <text x="1270" y="276" fill="white" font-size="12" font-weight="700" text-anchor="middle">GreedyConfig</text>
+        <line x1="1170" y1="284" x2="1370" y2="284" stroke="#fbbf24" stroke-width="0.8" opacity="0.5"/>
+        <text x="1172" y="298" fill="#cbd5e1" font-size="8">+ start_vertex: size_t = 0</text>
+        <text x="1172" y="311" fill="#94a3b8" font-size="7" font-style="italic">ctor GreedyConfig(start)</text>
+      </g>
+
+      <!-- ================= CLASS: GeneticAlgorithmConfig (amber) ================= -->
+      <g>
+        <rect x="1160" y="360" width="290" height="200" rx="6" fill="#0f172a"/>
+        <rect x="1160" y="360" width="290" height="200" rx="6" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="1305" y="378" fill="#fbbf24" font-size="8" font-style="italic" text-anchor="middle">«config»</text>
+        <text x="1305" y="396" fill="white" font-size="12" font-weight="700" text-anchor="middle">GeneticAlgorithmConfig</text>
+        <line x1="1170" y1="404" x2="1440" y2="404" stroke="#fbbf24" stroke-width="0.8" opacity="0.5"/>
+        <text x="1172" y="418" fill="#cbd5e1" font-size="8">+ population_size: size_t = 100</text>
+        <text x="1172" y="431" fill="#cbd5e1" font-size="8">+ generations: size_t = 200</text>
+        <text x="1172" y="444" fill="#cbd5e1" font-size="8">+ mutation_rate: double = 0.10</text>
+        <text x="1172" y="457" fill="#cbd5e1" font-size="8">+ crossover_rate: double = 0.90</text>
+        <text x="1172" y="470" fill="#cbd5e1" font-size="8">+ elitism_count: size_t = 1</text>
+        <text x="1172" y="483" fill="#cbd5e1" font-size="8">+ tournament_size: size_t = 3</text>
+        <text x="1172" y="496" fill="#cbd5e1" font-size="8">+ seed: uint64_t = 0</text>
+        <text x="1172" y="509" fill="#cbd5e1" font-size="8">+ crossover_type: GeneticCrossoverType = OX</text>
+        <line x1="1170" y1="517" x2="1440" y2="517" stroke="#fbbf24" stroke-width="0.8" opacity="0.5"/>
+        <text x="1172" y="531" fill="#94a3b8" font-size="7" font-style="italic">ctor sets all 8 params · seed 0 = random</text>
+        <text x="1172" y="544" fill="#94a3b8" font-size="7" font-style="italic">using GeneticConfig = GeneticAlgorithmConfig</text>
+      </g>
+
+      <!-- ================= CLASS: MatrixLoader (parser, slate) ================= -->
+      <g>
+        <rect x="60" y="310" width="360" height="215" rx="6" fill="#0f172a"/>
+        <rect x="60" y="310" width="360" height="215" rx="6" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="240" y="328" fill="#94a3b8" font-size="8" font-style="italic" text-anchor="middle">«parser»</text>
+        <text x="240" y="346" fill="white" font-size="12" font-weight="700" text-anchor="middle">MatrixLoader</text>
+        <line x1="70" y1="354" x2="410" y2="354" stroke="#94a3b8" stroke-width="0.8" opacity="0.5"/>
+        <text x="72" y="368" fill="#94a3b8" font-size="8">- coordinates_: vector&lt;Point&gt; · distanceMatrix_: Matrix</text>
+        <text x="72" y="381" fill="#94a3b8" font-size="8">- name_, comment_, dimension_, type_, …</text>
+        <line x1="70" y1="389" x2="410" y2="389" stroke="#94a3b8" stroke-width="0.8" opacity="0.5"/>
+        <text x="72" y="403" fill="#cbd5e1" font-size="8">+ MatrixLoader(filename)</text>
+        <text x="72" y="416" fill="#cbd5e1" font-size="8">- parse(filename)</text>
+        <text x="72" y="429" fill="#cbd5e1" font-size="8">- buildDistanceMatrix()</text>
+        <text x="72" y="442" fill="#cbd5e1" font-size="8">- buildCoordinateMatrix() · buildExplicitMatrix()</text>
+        <text x="72" y="455" fill="#cbd5e1" font-size="8">- 9 metric fns «static»: EUC_2D/3D · MAN_2D/3D</text>
+        <text x="72" y="468" fill="#cbd5e1" font-size="8">    MAX_2D/3D · CEIL_2D · GEO · ATT</text>
+        <text x="72" y="481" fill="#94a3b8" font-size="7" font-style="italic">reads any TSPLIB edge-weight type into a dense matrix</text>
+      </g>
+
+      <!-- ================= CLASS: SolverResult (data, violet) ================= -->
+      <g>
+        <rect x="880" y="600" width="310" height="140" rx="6" fill="#0f172a"/>
+        <rect x="880" y="600" width="310" height="140" rx="6" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="1035" y="618" fill="#a78bfa" font-size="8" font-style="italic" text-anchor="middle">«struct»</text>
+        <text x="1035" y="636" fill="white" font-size="12" font-weight="700" text-anchor="middle">SolverResult</text>
+        <line x1="890" y1="644" x2="1180" y2="644" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/>
+        <text x="892" y="658" fill="#cbd5e1" font-size="8">+ algorithm: string</text>
+        <text x="892" y="671" fill="#cbd5e1" font-size="8">+ tour: vector&lt;int&gt;</text>
+        <text x="892" y="684" fill="#cbd5e1" font-size="8">+ cost: double</text>
+        <text x="892" y="697" fill="#cbd5e1" font-size="8">+ time_ms: double</text>
+        <text x="892" y="710" fill="#cbd5e1" font-size="8">+ reference_cost: double  (NaN = unknown)</text>
+        <text x="892" y="723" fill="#cbd5e1" font-size="8">+ gap_percent: double    (vs reference)</text>
+      </g>
+
+      <!-- ================= ENUM: GeneticCrossoverType (amber) ================= -->
+      <g>
+        <rect x="1220" y="600" width="210" height="76" rx="6" fill="#0f172a"/>
+        <rect x="1220" y="600" width="210" height="76" rx="6" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="1325" y="618" fill="#fbbf24" font-size="8" font-style="italic" text-anchor="middle">«enum»</text>
+        <text x="1325" y="636" fill="white" font-size="12" font-weight="700" text-anchor="middle">GeneticCrossoverType</text>
+        <line x1="1230" y1="644" x2="1420" y2="644" stroke="#fbbf24" stroke-width="0.8" opacity="0.5"/>
+        <text x="1232" y="658" fill="#cbd5e1" font-size="8">OX · order crossover</text>
+        <text x="1232" y="671" fill="#cbd5e1" font-size="8">PMX · partially mapped</text>
+      </g>
+
+      <!-- ================= NOTE BOX: harness mains (cyan) ================= -->
+      <g>
+        <rect x="930" y="150" width="210" height="96" rx="6" fill="#0f172a"/>
+        <rect x="930" y="150" width="210" height="96" rx="6" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="1035" y="168" fill="#22d3ee" font-size="8" font-style="italic" text-anchor="middle">«main»</text>
+        <text x="1035" y="186" fill="white" font-size="11" font-weight="700" text-anchor="middle">_benchmark_*.cpp</text>
+        <line x1="940" y1="194" x2="1130" y2="194" stroke="#22d3ee" stroke-width="0.8" opacity="0.5"/>
+        <text x="942" y="208" fill="#94a3b8" font-size="7.5">scans data/*.tsp → cases</text>
+        <text x="942" y="221" fill="#94a3b8" font-size="7.5">registers {solver, config, label}</text>
+        <text x="942" y="234" fill="#94a3b8" font-size="7.5">calls runBenchmark() + writers</text>
+      </g>
+
+      <!-- ================= CLASS: BenchmarkSolver (orange) ================= -->
+      <g>
+        <rect x="70" y="850" width="290" height="115" rx="6" fill="#0f172a"/>
+        <rect x="70" y="850" width="290" height="115" rx="6" fill="rgba(251, 146, 60, 0.3)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="215" y="868" fill="#fb923c" font-size="8" font-style="italic" text-anchor="middle">«struct»</text>
+        <text x="215" y="886" fill="white" font-size="12" font-weight="700" text-anchor="middle">BenchmarkSolver</text>
+        <line x1="80" y1="894" x2="350" y2="894" stroke="#fb923c" stroke-width="0.8" opacity="0.5"/>
+        <text x="82" y="908" fill="#cbd5e1" font-size="8">+ solver: TSPSolver*</text>
+        <text x="82" y="921" fill="#cbd5e1" font-size="8">+ config: SolverConfig*</text>
+        <text x="82" y="934" fill="#cbd5e1" font-size="8">+ label: string</text>
+        <text x="82" y="950" fill="#fb923c" font-size="7" font-style="italic">binds a strategy to its config at runtime</text>
+      </g>
+
+      <!-- ================= CLASS: BenchmarkCase (orange) ================= -->
+      <g>
+        <rect x="400" y="850" width="250" height="115" rx="6" fill="#0f172a"/>
+        <rect x="400" y="850" width="250" height="115" rx="6" fill="rgba(251, 146, 60, 0.3)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="525" y="868" fill="#fb923c" font-size="8" font-style="italic" text-anchor="middle">«struct»</text>
+        <text x="525" y="886" fill="white" font-size="12" font-weight="700" text-anchor="middle">BenchmarkCase</text>
+        <line x1="410" y1="894" x2="640" y2="894" stroke="#fb923c" stroke-width="0.8" opacity="0.5"/>
+        <text x="412" y="908" fill="#cbd5e1" font-size="8">+ problem: TSPProblem</text>
+        <text x="412" y="921" fill="#cbd5e1" font-size="8">+ reference_cost: double</text>
+        <text x="412" y="937" fill="#fb923c" font-size="7" font-style="italic">NaN ⇒ no known optimum</text>
+      </g>
+
+      <!-- ================= CLASS: BenchmarkOptions (orange) ================= -->
+      <g>
+        <rect x="690" y="850" width="210" height="100" rx="6" fill="#0f172a"/>
+        <rect x="690" y="850" width="210" height="100" rx="6" fill="rgba(251, 146, 60, 0.3)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="795" y="868" fill="#fb923c" font-size="8" font-style="italic" text-anchor="middle">«struct»</text>
+        <text x="795" y="886" fill="white" font-size="12" font-weight="700" text-anchor="middle">BenchmarkOptions</text>
+        <line x1="700" y1="894" x2="890" y2="894" stroke="#fb923c" stroke-width="0.8" opacity="0.5"/>
+        <text x="702" y="908" fill="#cbd5e1" font-size="8">+ runs: size_t = 1</text>
+        <text x="702" y="921" fill="#cbd5e1" font-size="8">+ print_tour: bool = false</text>
+      </g>
+
+      <!-- ================= CLASS: BenchmarkResult (violet) ================= -->
+      <g>
+        <rect x="930" y="850" width="300" height="155" rx="6" fill="#0f172a"/>
+        <rect x="930" y="850" width="300" height="155" rx="6" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="1080" y="868" fill="#a78bfa" font-size="8" font-style="italic" text-anchor="middle">«struct»</text>
+        <text x="1080" y="886" fill="white" font-size="12" font-weight="700" text-anchor="middle">BenchmarkResult</text>
+        <line x1="940" y1="894" x2="1220" y2="894" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/>
+        <text x="942" y="908" fill="#cbd5e1" font-size="8">+ instance: string · dimension: size_t</text>
+        <text x="942" y="921" fill="#cbd5e1" font-size="8">+ algorithm: string · run: size_t</text>
+        <text x="942" y="934" fill="#cbd5e1" font-size="8">+ cost: double · time_ms: double</text>
+        <text x="942" y="947" fill="#cbd5e1" font-size="8">+ reference_cost: double</text>
+        <text x="942" y="960" fill="#cbd5e1" font-size="8">+ gap_percent: double</text>
+        <text x="942" y="973" fill="#cbd5e1" font-size="8">+ tour: vector&lt;int&gt;</text>
+      </g>
+
+      <!-- ================= FUNCTIONS BLOCK (slate) ================= -->
+      <g>
+        <rect x="1260" y="850" width="190" height="155" rx="6" fill="#0f172a"/>
+        <rect x="1260" y="850" width="190" height="155" rx="6" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="1355" y="868" fill="#94a3b8" font-size="8" font-style="italic" text-anchor="middle">«utility»</text>
+        <text x="1355" y="884" fill="white" font-size="10" font-weight="700" text-anchor="middle">free functions</text>
+        <line x1="1270" y1="892" x2="1440" y2="892" stroke="#94a3b8" stroke-width="0.8" opacity="0.5"/>
+        <text x="1272" y="906" fill="#cbd5e1" font-size="7.5">runBenchmark(cases, solvers, opts)</text>
+        <text x="1272" y="919" fill="#cbd5e1" font-size="7.5">writeBenchmarkStdout(res, out)</text>
+        <text x="1272" y="932" fill="#cbd5e1" font-size="7.5">writeBenchmarkCsv(res, out,</text>
+        <text x="1272" y="945" fill="#cbd5e1" font-size="7.5">    hdr, tour)</text>
+        <text x="1272" y="958" fill="#cbd5e1" font-size="7.5">makeBenchmarkCase(problem, ref)</text>
+        <text x="1272" y="979" fill="#94a3b8" font-size="7" font-style="italic">declared in Benchmark.h</text>
+      </g>
+
+      <!-- ================= RELATIONSHIP LABELS (on top, in empty zones) ================= -->
+      <text x="250" y="286" fill="#94a3b8" font-size="7.5">«uses» fromTspFile()</text>
+      <text x="436" y="96" fill="#94a3b8" font-size="7.5">problem: TSPProblem&amp;</text>
+      <text x="980" y="92" fill="#94a3b8" font-size="7.5">config: SolverConfig&amp;</text>
+      <text x="1152" y="182" fill="#94a3b8" font-size="7.5">«returns»</text>
+      <text x="455" y="770" fill="#fb923c" font-size="7.5">solver: TSPSolver*</text>
+      <text x="70" y="712" fill="#94a3b8" font-size="7.5">owns problem (composition)</text>
+      <text x="1332" y="585" fill="#94a3b8" font-size="7">crossover_type</text>
+      <text x="1238" y="898" fill="#94a3b8" font-size="7">returns</text>
+
+      <!-- ================= LEGEND (below all boundaries) ================= -->
+      <text x="60" y="1042" fill="white" font-size="10" font-weight="600">Legend</text>
+
+      <rect x="60" y="1056" width="16" height="10" rx="2" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1"/>
+      <text x="82" y="1064" fill="#94a3b8" font-size="8">«interface» / abstract / main</text>
+
+      <rect x="290" y="1056" width="16" height="10" rx="2" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1"/>
+      <text x="312" y="1064" fill="#94a3b8" font-size="8">concrete solver</text>
+
+      <rect x="530" y="1056" width="16" height="10" rx="2" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="552" y="1064" fill="#94a3b8" font-size="8">config / enum</text>
+
+      <rect x="750" y="1056" width="16" height="10" rx="2" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1"/>
+      <text x="772" y="1064" fill="#94a3b8" font-size="8">data &amp; results</text>
+
+      <rect x="980" y="1056" width="16" height="10" rx="2" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1"/>
+      <text x="1002" y="1064" fill="#94a3b8" font-size="8">parser / utility</text>
+
+      <rect x="1220" y="1056" width="16" height="10" rx="2" fill="rgba(251, 146, 60, 0.3)" stroke="#fb923c" stroke-width="1"/>
+      <text x="1242" y="1064" fill="#94a3b8" font-size="8">benchmark framework</text>
+
+      <line x1="60" y1="1086" x2="88" y2="1086" stroke="#94a3b8" stroke-width="1.5"/>
+      <polygon points="88,1081 100,1086 88,1091" fill="#020617" stroke="#94a3b8" stroke-width="1.2"/>
+      <text x="108" y="1089" fill="#94a3b8" font-size="8">inheritance (is-a)</text>
+
+      <line x1="300" y1="1086" x2="328" y2="1086" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="4,4"/>
+      <polygon points="328,1082 337,1086 328,1090" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="345" y="1089" fill="#94a3b8" font-size="8">dependency («uses», «param», «returns»)</text>
+
+      <line x1="780" y1="1086" x2="808" y2="1086" stroke="#a78bfa" stroke-width="1.5"/>
+      <polygon points="808,1086 815,1081 822,1086 815,1091" fill="#a78bfa"/>
+      <text x="830" y="1089" fill="#94a3b8" font-size="8">composition (part-of)</text>
+    </svg>
+    </div>
+
+    <!-- Info Cards -->
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot cyan"></div>
+          <h3>Strategy pattern — the core design</h3>
+        </div>
+        <ul>
+          <li>• TSPSolver is the abstract strategy: one uniform solve(problem, config) contract</li>
+          <li>• GreedySolver &amp; GeneticAlgorithm are interchangeable implementations</li>
+          <li>• A parallel SolverConfig hierarchy carries per-algorithm parameters polymorphically</li>
+          <li>• The benchmark selects algorithms at runtime via TSPSolver* — no switch on type</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot violet"></div>
+          <h3>Data flow</h3>
+        </div>
+        <ul>
+          <li>• MatrixLoader parses TSPLIB files (9 edge-weight types: EUC/MAN/MAX 2D+3D, CEIL_2D, GEO, ATT)</li>
+          <li>• TSPProblem::fromTspFile() delegates parsing, then wraps the dense distance matrix + tourCost()</li>
+          <li>• A solver consumes the problem and returns SolverResult (tour, cost, time_ms, gap vs reference)</li>
+          <li>• Note: _MatrixLoader_attached.* is an exact duplicate of MatrixLoader.* (kept for reference)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot amber"></div>
+          <h3>Benchmark framework</h3>
+        </div>
+        <ul>
+          <li>• _benchmark_*.cpp mains scan data/*.tsp and build BenchmarkCase lists with reference optima</li>
+          <li>• Each {solver, config, label} triple registers as a BenchmarkSolver</li>
+          <li>• runBenchmark() executes every solver × case × run, emitting BenchmarkResult rows</li>
+          <li>• writeBenchmarkStdout / writeBenchmarkCsv produce the files in results/</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer">
+      tsp · UML class diagram generated from D:/ML-personal-notebooks/tsp/src · C++ · no external dependencies
+    </p>
+  </div>
+</body>
+</html>

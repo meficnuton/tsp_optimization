@@ -1,0 +1,36 @@
+# GA benchmark configs - one row per configuration.
+#
+# Format:
+#   label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+#
+# Rules:
+#   * '#' comments and blank lines are ignored; the header row is optional.
+#   * population and generations are REQUIRED (>= 1): the compute budget is
+#     part of the config row, so this file fully defines a benchmark.
+#   * Empty trailing fields fall back to the defaults: mut 0.10, xov 0.90,
+#     elitism 2, tournament 3, crossover OX.
+#   * crossover is OX or PMX (case-insensitive).
+#   * Labels must be unique; a label starting with "baseline" fills the
+#     baselineGA% column of the per-instance summary.
+#
+# Seeded with the one-factor-at-a-time sweep around the baseline (every
+# other row differs in exactly one knob), all at the same 150x600 budget
+# so they compare fairly. Add rows with bigger budgets for the larger
+# classes if you want them, e.g. a 150x1000 variant for 1000-10000.
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+baseline,150,600,0.10,0.90,2,3,OX
+PMX,150,600,0.10,0.90,2,3,PMX
+mut_0.02,150,600,0.02,0.90,2,3,OX
+mut_0.05,150,600,0.05,0.90,2,3,OX
+mut_0.20,150,600,0.20,0.90,2,3,OX
+mut_0.40,150,600,0.40,0.90,2,3,OX
+xov_0.70,150,600,0.10,0.70,2,3,OX
+xov_0.99,150,600,0.10,0.99,2,3,OX
+elite_0,150,600,0.10,0.90,0,3,OX
+elite_5,150,600,0.10,0.90,5,3,OX
+elite_10,150,600,0.10,0.90,10,3,OX
+tour_2,150,600,0.10,0.90,2,2,OX
+tour_5,150,600,0.10,0.90,2,5,OX
+tour_8,150,600,0.10,0.90,2,8,OX
+combo_PMX_m20_x90_e5_t5,150,600,0.20,0.90,5,5,PMX
+combo_OX_m10_x80_e1_t2,150,600,0.10,0.80,1,2,OX

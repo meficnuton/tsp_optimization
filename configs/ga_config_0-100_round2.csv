@@ -1,0 +1,18 @@
+# ga_config_0-100_round2.csv - combine round-1 winners + bigger budget.
+# Round-1 findings: best = mut_0.40, xov_0.99, elite_5, budget_200x450.
+# Failing: neil76 (21.62% vs greedy 19.33%), rat99 (28.76% vs 28.32%).
+# Result (3 seeds): 22/22 wins. Champion: big_200x900_m40_x99_e5
+# (mean gap 6.64%, beats greedy on every instance, min margin +4.5 on gr17).
+#
+# Format: label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+baseline,150,600,0.10,0.90,2,3,OX
+r1_mut_0.40,150,600,0.40,0.90,2,3,OX
+r1_xov_0.99,150,600,0.10,0.99,2,3,OX
+c_m40_x99,150,600,0.40,0.99,2,3,OX
+c_m40_x99_e5,150,600,0.40,0.99,5,3,OX
+big_200x900_m40_x99,200,900,0.40,0.99,2,3,OX
+big_200x900_m40_x99_e5,200,900,0.40,0.99,5,3,OX
+big_200x1200_m40_x99,200,1200,0.40,0.99,2,3,OX
+big_300x600_m40_x99,300,600,0.40,0.99,2,3,OX
+big_200x900_m30_x99_e5,200,900,0.30,0.99,5,3,OX

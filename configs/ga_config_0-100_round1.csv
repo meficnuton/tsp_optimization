@@ -1,0 +1,25 @@
+# ga_config_0-100_round1.csv - exploration sweep for the <100 benchmark.
+# Goal: find configs where GA beats greedy on ALL 22 instances of data/0-100.
+# Round 1: one-factor-at-a-time around the 150x600 baseline, probing the
+# knobs that matter for a single-swap-mutation GA: mutation rate, elitism,
+# tournament size, crossover rate/operator, and budget shape.
+# Result (3 seeds): 20/22 wins. Best: mut_0.40 (mean gap 9.93%),
+# xov_0.99 (10.01%), budget_200x450 (10.15%). Still failing: neil76, rat99.
+#
+# Format: label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+baseline,150,600,0.10,0.90,2,3,OX
+mut_0.20,150,600,0.20,0.90,2,3,OX
+mut_0.30,150,600,0.30,0.90,2,3,OX
+mut_0.40,150,600,0.40,0.90,2,3,OX
+mut_0.60,150,600,0.60,0.90,2,3,OX
+mut_0.80,150,600,0.80,0.90,2,3,OX
+elite_5,150,600,0.30,0.90,5,3,OX
+elite_10,150,600,0.30,0.90,10,3,OX
+tour_2,150,600,0.30,0.90,2,2,OX
+tour_5,150,600,0.30,0.90,2,5,OX
+xov_0.99,150,600,0.30,0.99,2,3,OX
+pmx_0.30,150,600,0.30,0.90,2,3,PMX
+pmx_0.60,150,600,0.60,0.90,2,3,PMX
+budget_200x450,200,450,0.30,0.90,2,3,OX
+budget_100x1200,100,1200,0.30,0.90,2,3,OX
