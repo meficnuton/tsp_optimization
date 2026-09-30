@@ -1,0 +1,45 @@
+=== GA vs Greedy configuration benchmark ===
+seeds per (config, instance): 5
+command: ./bin/_benchmark_ga_configs --runs=5 --classes=0-100 --configs=configs\ga_config_0-100_round2.csv
+instances compared: 22  GA wins: 22 (100.00%)
+
+--- 0-100 : config ranking (by mean gap%) ---
+config                        mean_gap%  best_gap%  std_gap%  mean_ms  wins
+big_200x900_m40_x99_e5            6.71      0.00      6.71    73.82     9
+big_200x900_m30_x99_e5            7.94      0.00      8.11    73.32     2
+r1_mut_0.40                       9.38      0.00     10.32    36.25     1
+c_m40_x99_e5                      9.40      0.00      9.19    73.12     1
+big_200x1200_m40_x99             11.10      0.00     14.01   105.77     3
+r1_xov_0.99                      12.94      0.00     12.74    36.48     1
+c_m40_x99                        13.03      0.00     15.20    70.18     0
+big_200x900_m40_x99              13.99      0.00     15.83    84.89     0
+baseline                         14.25      0.00     14.10    33.61     2
+big_300x600_m40_x99              21.97      0.00     24.39    85.40     3
+Greedy(start=0)                  24.83      4.89     10.78     0.01     0
+
+--- 0-100 : per-instance (Greedy vs best GA) ---
+instance      dim    greedy%   bestGA%  baselineGA%  winner  best_ga_config
+att48            48    21.01      5.03       10.44  GA      big_200x900_m40_x99_e5
+bayg29           29    24.53      1.08        7.99  GA      big_300x600_m40_x99
+bays29           29    11.78      0.93        7.23  GA      r1_mut_0.40
+berlin52         52    19.07      8.84       17.60  GA      big_200x900_m40_x99_e5
+brazil58         58    21.18      7.21       12.81  GA      big_200x900_m30_x99_e5
+burma14          14    21.82      0.00        0.00  GA      baseline
+dantzig42        42    36.77      0.00        0.00  GA      baseline
+eil51            51    19.95      7.42       14.79  GA      big_200x1200_m40_x99
+eil76            76    19.33     15.35       26.43  GA      big_200x900_m40_x99_e5
+fri26            26    18.68      0.00        1.28  GA      big_300x600_m40_x99
+gr17             17     4.89      0.22        0.93  GA      big_200x900_m40_x99_e5
+gr21             21    23.13      0.00        5.16  GA      big_200x1200_m40_x99
+gr24             24    22.09      2.99        5.42  GA      r1_xov_0.99
+gr48             48    20.85      6.93       18.10  GA      big_200x900_m40_x99_e5
+gr96             96    28.45     12.79       30.03  GA      big_200x900_m40_x99_e5
+hk48             48    15.01      5.65       14.71  GA      big_200x900_m30_x99_e5
+pr76             76    41.89     23.49       39.38  GA      big_200x900_m40_x99_e5
+rat99            99    28.32     17.21       50.34  GA      big_200x900_m40_x99_e5
+st70             70    22.96     12.71       29.04  GA      big_200x900_m40_x99_e5
+swiss42          42    28.04      6.39       19.03  GA      big_200x1200_m40_x99
+ulysses16        16    45.62      0.17        0.66  GA      big_300x600_m40_x99
+ulysses22        22    50.95      0.50        2.26  GA      c_m40_x99_e5
+class GA win rate: 22/22
+

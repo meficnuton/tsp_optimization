@@ -1,0 +1,50 @@
+=== GA vs Greedy configuration benchmark ===
+seeds per (config, instance): 5
+command: ./bin/_benchmark_ga_configs --runs=5 --classes=0-100 --configs=configs\ga_config_0-100_round1.csv
+instances compared: 22  GA wins: 21 (95.45%)
+
+--- 0-100 : config ranking (by mean gap%) ---
+config                        mean_gap%  best_gap%  std_gap%  mean_ms  wins
+mut_0.40                          9.91      0.00     10.07    36.78     3
+budget_200x450                    9.96      0.00     10.50    75.63     5
+xov_0.99                         10.02      0.00     10.44    38.08     5
+mut_0.30                         11.21      0.00     11.19    35.25     0
+elite_5                          12.27      0.00     12.07    34.31     2
+budget_100x1200                  12.38      0.00     12.03    90.79     0
+mut_0.20                         12.60      0.00     12.67    34.41     0
+elite_10                         13.54      0.00     13.33    33.00     1
+baseline                         14.25      0.00     14.10    33.88     2
+tour_5                           16.44      0.00     14.71    35.98     0
+mut_0.60                         21.50      0.00     21.73    40.48     3
+pmx_0.60                         23.83      0.00     19.23    45.66     0
+Greedy(start=0)                  24.83      4.89     10.78     0.01     0
+pmx_0.30                         26.09      0.00     20.20    29.87     0
+mut_0.80                         30.17      0.00     28.15    41.74     0
+tour_2                           30.96      0.00     29.82    40.55     0
+
+--- 0-100 : per-instance (Greedy vs best GA) ---
+instance      dim    greedy%   bestGA%  baselineGA%  winner  best_ga_config
+att48            48    21.01      7.33       10.44  GA      mut_0.40
+bayg29           29    24.53      3.91        7.99  GA      elite_10
+bays29           29    11.78      2.36        7.23  GA      xov_0.99
+berlin52         52    19.07     11.93       17.60  GA      budget_200x450
+brazil58         58    21.18      7.27       12.81  GA      budget_200x450
+burma14          14    21.82      0.00        0.00  GA      baseline
+dantzig42        42    36.77      0.00        0.00  GA      baseline
+eil51            51    19.95      7.51       14.79  GA      xov_0.99
+eil76            76    19.33     23.98       26.43  Greedy  budget_200x450
+fri26            26    18.68      0.00        1.28  GA      mut_0.60
+gr17             17     4.89      0.10        0.93  GA      elite_5
+gr21             21    23.13      0.00        5.16  GA      budget_200x450
+gr24             24    22.09      3.57        5.42  GA      elite_5
+gr48             48    20.85      8.61       18.10  GA      mut_0.40
+gr96             96    28.45     18.68       30.03  GA      budget_200x450
+hk48             48    15.01      9.40       14.71  GA      xov_0.99
+pr76             76    41.89     31.88       39.38  GA      xov_0.99
+rat99            99    28.32     25.90       50.34  GA      xov_0.99
+st70             70    22.96     17.57       29.04  GA      mut_0.40
+swiss42          42    28.04     10.26       19.03  GA      budget_200x450
+ulysses16        16    45.62      0.10        0.66  GA      mut_0.60
+ulysses22        22    50.95      0.53        2.26  GA      mut_0.60
+class GA win rate: 21/22
+

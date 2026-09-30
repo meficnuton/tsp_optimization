@@ -1,0 +1,44 @@
+# ga_config_100-200_round2.csv - interaction sweep around the round-1 winners.
+#
+# ROUND-1 FACTS THIS FILE IS BUILT ON (class 100-200, 25 instances, 5 seeds):
+#   * Greedy(start=0) mean gap 43.91% (23.50% excluding brg180); GA wins 4/25.
+#   * Best GAs: budget_100x1200 (52.80), elite_10 (57.06), tour_5 (58.60),
+#     elite_5 (58.69), mut_0.20 (61.81) -- all within ~9 pts of each other.
+#   * Round 1 was one-factor-at-a-time, so no row tested the combination
+#     (small pop x many gens) + (elite 10) + (tour 5) + (mut 0.20).
+#   * Signals: total evaluations matter (100x1200=120k beat 150x600=90k and
+#     200x450=90k); small pop > big pop at equal budget; elitism 10 > 2;
+#     tournament 5 > 3 > 2; OX >> PMX; mutation 0.2 best at 150x600 but the
+#     0-100 class champion used 0.40 (>0.4 catastrophic here).
+#   * Tail is the real problem: counts of seeds with gap > 100% were
+#     tour_2 85, mut_0.80 85, mut_0.60 75, pmx 49-51, mut_0.40 24,
+#     vs budget_100x1200 only 3 and elite_10 only 4. Elitism trades mean for
+#     tail, so round 2 pushes elitism upward.
+#
+# Deliberately absent: PMX (dominated), tournament 2 (catastrophic),
+# mutation >= 0.60 (catastrophic at this budget).
+#
+# First two rows REUSE round-1 labels on purpose: seeds are derived from
+# (label, instance, run index), so these reproduce round-1 runs exactly and
+# give a paired anchor to measure every new row against.
+#
+# Budget axis: pop*generations = evaluations per seed.
+#   round-1 baseline 90k -> 120k (winner) -> round 2 probes 240k-300k.
+#
+# Format: label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,crossover
+budget_100x1200,100,1200,0.30,0.90,2,3,OX
+elite_10,150,600,0.30,0.90,10,3,OX
+c_m20_e10_t5,100,1200,0.20,0.90,10,5,OX
+c_m20_e10_t5_x99,100,1200,0.20,0.99,10,5,OX
+c_m20_e5_t5,100,1200,0.20,0.90,5,5,OX
+b_100x2500_m20_e10_t5,100,2500,0.20,0.90,10,5,OX
+b_150x2000_m20_e10_t5,150,2000,0.20,0.90,10,5,OX
+b_200x1200_m20_e10_t5,200,1200,0.20,0.90,10,5,OX
+b_100x2500_m20_e20_t5,100,2500,0.20,0.90,20,5,OX
+b_100x2500_m20_e10_t7,100,2500,0.20,0.90,10,7,OX
+b_100x2500_m10_e10_t5,100,2500,0.10,0.90,10,5,OX
+b_100x2500_m30_x99_e10_t5,100,2500,0.30,0.99,10,5,OX
+b_100x2500_m40_x99_e10_t5,100,2500,0.40,0.99,10,5,OX
+b_150x2000_m40_x99_e5_t5,150,2000,0.40,0.99,5,5,OX
+champ_0_100,200,900,0.40,0.99,5,3,OX

@@ -1,0 +1,53 @@
+=== GA vs Greedy configuration benchmark ===
+seeds per (config, instance): 5
+command: ./bin/_benchmark_ga_configs --runs=5 --classes=100-200 --configs=configs\ga_config_100-200_round1.csv
+instances compared: 25  GA wins: 4 (16.00%)
+
+--- 100-200 : config ranking (by mean gap%) ---
+config                        mean_gap%  best_gap%  std_gap%  mean_ms  wins
+Greedy(start=0)                  43.91      4.00    102.51     0.04     0
+budget_100x1200                  52.80      1.50     51.40   104.05     1
+elite_10                         57.06      2.12     34.98    75.87     0
+tour_5                           58.60      2.14     34.54    80.47     1
+elite_5                          58.69      2.14     45.57    78.96     0
+mut_0.20                         61.81      2.14     64.22    80.27     0
+mut_0.30                         64.00      1.91     57.12    81.12     0
+baseline                         66.45      2.40     61.51    80.27     0
+pmx_0.30                         88.40      2.14     60.75    57.82     0
+pmx_0.60                         93.28      2.14     63.77    59.17     0
+budget_200x450                   95.06      2.14    168.95    83.16     1
+xov_0.99                         98.68      2.12    192.95    87.31     1
+mut_0.40                        104.92      2.12    190.22    82.80     0
+mut_0.60                        190.63      2.65    418.57    86.46     0
+mut_0.80                        241.02      2.91    549.26    88.49     0
+tour_2                          287.26      2.69    740.66    88.64     0
+
+--- 100-200 : per-instance (Greedy vs best GA) ---
+instance      dim    greedy%   bestGA%  baselineGA%  winner  best_ga_config
+bier127         127    14.76     33.84       44.55  Greedy  elite_10
+brg180          180   533.85    109.74      328.31  GA      tour_5
+ch130           130    24.04     59.66       64.52  Greedy  budget_100x1200
+ch150           150    25.47     61.61       90.77  Greedy  budget_100x1200
+d198            198    15.59     29.73       36.43  Greedy  mut_0.40
+eil101          101    27.66     29.86       38.41  Greedy  budget_100x1200
+gr120           120    34.70     51.35       59.52  Greedy  elite_5
+gr137           137    34.44     24.14       28.79  GA      budget_200x450
+kroA100         100    30.66     48.90       61.75  Greedy  elite_5
+kroA150         150    26.80     65.55      101.58  Greedy  budget_100x1200
+kroB100         100    31.69     37.10       58.16  Greedy  budget_100x1200
+kroB150         150    32.03     84.34       93.24  Greedy  budget_100x1200
+kroC100         100    26.40     47.23       54.64  Greedy  budget_100x1200
+kroD100         100    26.55     42.64       59.88  Greedy  budget_100x1200
+kroE100         100    24.43     42.31       54.26  Greedy  budget_100x1200
+lin105          105    41.57     38.63       56.26  GA      xov_0.99
+pr107           107     5.37     16.29       21.94  Greedy  mut_0.40
+pr124           124    17.39     52.84       61.65  Greedy  xov_0.99
+pr136           136    24.80     59.64       74.53  Greedy  mut_0.30
+pr144           144     5.32     52.50       57.65  Greedy  xov_0.99
+pr152           152    16.31     71.78       83.04  Greedy  budget_200x450
+rat195          195    18.47     50.34       64.47  Greedy  budget_200x450
+rd100           100    25.64     39.37       52.50  Greedy  budget_100x1200
+si175           175     4.00      8.25       11.91  Greedy  xov_0.99
+u159            159    29.93      2.03        2.49  GA      budget_100x1200
+class GA win rate: 4/25
+
