@@ -1,0 +1,43 @@
+=== GA vs Greedy configuration benchmark ===
+seeds per (config, instance): 5
+instances compared: 18  GA wins: 5 (27.78%)
+
+--- 200-500 : config ranking (by mean gap%) ---
+config                        mean_gap%  best_gap%  std_gap%  mean_ms  wins
+Greedy(start=0)                  23.83     17.81      4.27     0.18     0
+R_t4                             38.12      4.85     21.67 10276.69     1
+R_m55                            38.71      6.40     23.87 10163.97     4
+L_800x10000                      39.15      3.80     21.17 22021.46     0
+L_400x20000                      45.12      4.44     26.02 19894.45     0
+L_500x10000                      45.55      7.44     26.27  9672.35     0
+L_400x15000                      46.82      5.03     26.93 16375.04     0
+B_400x10000_m40_x99_e10_t5       46.97      7.72     25.77  8022.73     0
+R_e25                            49.31      6.38     28.25 13013.66     0
+L_600x12000                      49.70      7.28     28.15 15496.30     0
+champ_200_500                    49.78      6.46     28.56 21930.11     0
+R_x90                            50.40      7.44     29.78 12566.16     0
+R_m25                            50.69      4.72     28.04 12852.23     0
+R_t10                            58.25      7.95     34.71 11937.33     0
+
+--- 200-500 : per-instance (Greedy vs best GA) ---
+instance      dim    greedy%   bestGA%  baselineGA%  winner  best_ga_config
+a280            280    22.41      6.88        0.00  GA      R_m55
+d493            493    19.04     31.46        0.00  Greedy  L_800x10000
+fl417           417    26.57     91.37        0.00  Greedy  L_800x10000
+gil262          262    34.90     40.40        0.00  Greedy  R_t4
+gr202           202    22.85     10.63        0.00  GA      R_m55
+gr229           229    20.67     15.64        0.00  GA      R_m55
+gr431           431    22.55     16.65        0.00  GA      R_m55
+kroA200         200    22.10     35.42        0.00  Greedy  R_t4
+kroB200         200    25.62     33.78        0.00  Greedy  R_m55
+lin318          318    28.53     44.42        0.00  Greedy  R_m55
+pcb442          442    22.06     53.16        0.00  Greedy  R_t4
+pr226           226    17.81     26.01        0.00  Greedy  L_800x10000
+pr264           264    18.09     44.46        0.00  Greedy  R_t4
+pr299           299    24.28     30.50        0.00  Greedy  R_m55
+pr439           439    22.44     60.63        0.00  Greedy  L_800x10000
+rd400           400    25.53     55.41        0.00  Greedy  R_m55
+ts225           225    20.41     39.12        0.00  Greedy  R_m55
+tsp225          225    28.45      8.95        0.00  GA      R_t4
+class GA win rate: 5/18
+
