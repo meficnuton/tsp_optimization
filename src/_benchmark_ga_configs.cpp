@@ -34,6 +34,7 @@
 // results/, and prints the summary to stdout.
 
 #include "benchmark/GaBenchmark.h"
+#include "benchmark/ConfigEcho.h"
 
 #include <algorithm>
 #include <cstdint>
@@ -260,5 +261,19 @@ int main(int argc, char** argv) {
 
     std::cerr << "\nper-run CSV:  " << csv_path << "\n";
     std::cerr << "summary file: " << summary_path << "\n";
+
+    // Echo the config file into the summary so readers of the summary alone
+    // know exactly which parameter sets were tested.
+    std::vector<std::pair<std::string, std::string>> config_rows;
+    for (const auto& variant : variants) {
+        std::ostringstream desc;
+        desc << "pop=" << variant.population << " gen=" << variant.generations
+             << " mut=" << variant.mutation_rate << " cxr=" << variant.crossover_rate
+             << " elit=" << variant.elitism_count << " tour=" << variant.tournament_size
+             << " crossover="
+             << (variant.crossover_type == GeneticCrossoverType::OX ? "OX" : "PMX");
+        config_rows.emplace_back(variant.label, desc.str());
+    }
+    writeConfigEcho(std::cout, summary_path, config_rows);
     return 0;
 }

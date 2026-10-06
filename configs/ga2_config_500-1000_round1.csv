@@ -1,0 +1,28 @@
+# GA2 operator sweep - size class 500-1000, round 1.
+# Budget is constant across rows (pop=80, gen=150). Two-opt after mutation is
+# kept rare (two_opt >= 50) because a 2-opt pass is O(n^2) at this size;
+# seeding via greedy / rgreedy still gives the population 2-opt-quality starts.
+# Columns: label,population,generations,mutation_rate,crossover_rate,elitism,
+#          tournament,selection,crossover,mutation,early_stop,init,two_opt
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,selection,crossover,mutation,early_stop,init,two_opt
+
+baseline_ox_swap_tournament,80,150,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+cross_pmx,80,150,0.10,0.90,2,3,tournament,PMX,swap,0,random,0
+cross_cx,80,150,0.10,0.90,2,3,tournament,CX,swap,0,random,0
+cross_erx,80,150,0.10,0.90,2,3,tournament,ERX,swap,0,random,0
+mut_inversion,80,150,0.10,0.90,2,3,tournament,OX,inversion,0,random,0
+mut_insertion,80,150,0.10,0.90,2,3,tournament,OX,insertion,0,random,0
+mut_scramble,80,150,0.10,0.90,2,3,tournament,OX,scramble,0,random,0
+sel_roundrobin,80,150,0.10,0.90,2,3,roundrobin,OX,swap,0,random,0
+sel_roulette,80,150,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+sel_rank,80,150,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+mut_inversion30,80,150,0.30,0.90,2,3,tournament,OX,inversion,0,random,0
+mut_insertion30,80,150,0.30,0.90,2,3,tournament,OX,insertion,0,random,0
+combo_erx_inv,80,150,0.10,0.90,2,3,tournament,ERX,inversion,0,random,0
+combo_rr_inv,80,150,0.10,0.90,2,3,roundrobin,OX,inversion,0,random,0
+early_stop50,80,150,0.10,0.90,2,3,tournament,OX,swap,50,random,0
+init_greedy,80,150,0.10,0.90,2,3,tournament,OX,swap,0,greedy,0
+init_rgreedy,80,150,0.10,0.90,2,3,tournament,OX,swap,0,rgreedy,0
+init_greedy_twoopt50,80,150,0.10,0.90,2,3,tournament,OX,swap,0,greedy,50
+init_rgreedy_twoopt50,80,150,0.10,0.90,2,3,tournament,OX,swap,0,rgreedy,50
+twoopt50_random,80,150,0.10,0.90,2,3,tournament,OX,swap,0,random,50

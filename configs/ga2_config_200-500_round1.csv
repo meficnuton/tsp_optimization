@@ -1,0 +1,45 @@
+# GA2 operator sweep - size class 200-500, round 1.
+# Budget is constant across rows (pop=100, gen=200) so the rows compare the
+# OPERATORS fairly. Labels starting with "baseline" fill the baselineGA%
+# column of the summary.
+# Columns: label,population,generations,mutation_rate,crossover_rate,elitism,
+#          tournament,selection,crossover,mutation,early_stop,init,two_opt
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,selection,crossover,mutation,early_stop,init,two_opt
+
+# --- one-factor sweeps around the baseline ---------------------------------
+baseline_ox_swap_tournament,100,200,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+cross_pmx,100,200,0.10,0.90,2,3,tournament,PMX,swap,0,random,0
+cross_cx,100,200,0.10,0.90,2,3,tournament,CX,swap,0,random,0
+cross_erx,100,200,0.10,0.90,2,3,tournament,ERX,swap,0,random,0
+mut_inversion,100,200,0.10,0.90,2,3,tournament,OX,inversion,0,random,0
+mut_insertion,100,200,0.10,0.90,2,3,tournament,OX,insertion,0,random,0
+mut_scramble,100,200,0.10,0.90,2,3,tournament,OX,scramble,0,random,0
+mut_random,100,200,0.10,0.90,2,3,tournament,OX,random,0,random,0
+sel_roundrobin,100,200,0.10,0.90,2,3,roundrobin,OX,swap,0,random,0
+sel_roulette,100,200,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+sel_rank,100,200,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+
+# --- mutation-rate sensitivity for the structural mutations ---------------
+mut_inversion30,100,200,0.30,0.90,2,3,tournament,OX,inversion,0,random,0
+mut_insertion30,100,200,0.30,0.90,2,3,tournament,OX,insertion,0,random,0
+mut_scramble30,100,200,0.30,0.90,2,3,tournament,OX,scramble,0,random,0
+
+# --- operator combinations -------------------------------------------------
+combo_erx_inv,100,200,0.10,0.90,2,3,tournament,ERX,inversion,0,random,0
+combo_pmx_ins,100,200,0.10,0.90,2,3,tournament,PMX,insertion,0,random,0
+combo_cx_inv,100,200,0.10,0.90,2,3,tournament,CX,inversion,0,random,0
+combo_rr_inv,100,200,0.10,0.90,2,3,roundrobin,OX,inversion,0,random,0
+combo_erx_rr_inv,100,200,0.10,0.90,2,3,roundrobin,ERX,inversion,0,random,0
+
+# --- early stopping (same budget label; should match baseline cost) --------
+early_stop50,100,200,0.10,0.90,2,3,tournament,OX,swap,50,random,0
+early_stop100,100,200,0.10,0.90,2,3,tournament,OX,swap,100,random,0
+
+# --- seeded initialization / 2-opt -----------------------------------------
+init_greedy,100,200,0.10,0.90,2,3,tournament,OX,swap,0,greedy,0
+init_rgreedy,100,200,0.10,0.90,2,3,tournament,OX,swap,0,rgreedy,0
+init_greedy_twoopt25,100,200,0.10,0.90,2,3,tournament,OX,swap,0,greedy,25
+init_rgreedy_twoopt25,100,200,0.10,0.90,2,3,tournament,OX,swap,0,rgreedy,25
+twoopt25_random,100,200,0.10,0.90,2,3,tournament,OX,swap,0,random,25
+twoopt10_random,100,200,0.10,0.90,2,3,tournament,OX,swap,0,random,10
+combo_greedy_init_rr_inv,100,200,0.10,0.90,2,3,roundrobin,OX,inversion,0,greedy,0
