@@ -1,0 +1,10 @@
+# GA2 operator-duel - class 500-1000. Budget scaled down (pop=100 gen=300)
+# because of the larger n (same rationale as the earlier 500-1000 rounds).
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,selection,crossover,mutation,early_stop,init,two_opt
+combo_ox_inv10,100,300,0.10,0.90,2,3,tournament,OX,inversion,0,random,0
+combo_erx_inv10,100,300,0.10,0.90,2,3,tournament,ERX,inversion,0,random,0
+baseline_ox_swap,100,300,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+init_greedy,100,300,0.10,0.90,2,3,tournament,OX,swap,0,greedy,0
+init_rgreedy,100,300,0.10,0.90,2,3,tournament,OX,swap,0,rgreedy,0
+init_greedy_twoopt25,100,300,0.10,0.90,2,3,tournament,OX,swap,0,greedy,25
+twoopt10_random,100,300,0.10,0.90,2,3,tournament,OX,swap,0,random,10

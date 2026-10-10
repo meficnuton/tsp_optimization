@@ -1,8 +1,9 @@
 # TSP Solver & Benchmark Framework
 
-C++17 project implementing two heuristic solvers for the Traveling Salesman
-Problem — a nearest-neighbour **greedy** solver and a **genetic algorithm**
-(GA) — plus a benchmark framework that measures both against known-optimal
+C++17 project implementing three heuristic solvers for the Traveling Salesman
+Problem — a nearest-neighbour **greedy** solver, a **genetic algorithm**
+(GA), and an **ant-colony optimization** (ACO, classic Ant System) — plus a
+benchmark framework that measures both against known-optimal
 TSPLIB tour lengths, organized by problem size.
 
 The current focus is a GA-vs-Greedy configuration benchmark: GA configurations
@@ -27,11 +28,14 @@ tsp/
 │   ├── SolverResult.h        # SolverResult struct (tour, cost, time, gap%)
 │   ├── GreedySolver.h/.cpp       # nearest-neighbour greedy solver
 │   ├── GeneticAlgorithm.h/.cpp   # genetic algorithm solver (OX/PMX, elitism, tournament)
+│   ├── AntColonyOptimization.h/.cpp # ant system solver (AS: tau^alpha * eta^beta, evaporation)
 │   │
 │   ├── benchmark/                # benchmark framework
 │   │   └── GaBenchmark.h/.cpp    # GA-vs-Greedy config benchmark building blocks
+│   │   └── AcoBenchmark.h/.cpp   # AcoVariant/AcoConfigFile (reuses GaBenchmark infra)
 │   │
-│   └── _benchmark_ga_configs.cpp # MAIN harness: GA configs from CSV vs greedy
+│   ├── _benchmark_ga_configs.cpp # MAIN harness: GA configs from CSV vs greedy
+│   ├── _benchmark_aco_configs.cpp # ACO harness: ACO configs from CSV vs greedy
 │   
 │
 ├── configs/                      # GA benchmark config CSVs (one row per config)
@@ -130,6 +134,24 @@ A classic generational GA over permutations:
 | `tournament_size` | 3 | tournament selection |
 | `seed` | 0 | 0 = non-deterministic; non-zero = reproducible |
 | `crossover_type` | OX | OX (ordered) or PMX (partially mapped), both permutation-preserving |
+
+### AntColonyOptimization — classic Ant System
+
+A basic ACO: `ant_count` ants construct tours per iteration by roulette-wheel
+selection with edge probability ∝ tau^alpha · (1/d)^beta, followed by global
+pheromone evaporation (rate `rho`) and per-ant deposit `q / L` on every tour
+edge. Initial pheromone follows the classic AS rule `tau0 = ants / L_nn`
+(L_nn = nearest-neighbour tour). Best tour over all iterations is returned.
+
+| Parameter (`AntColonyConfig`) | Default | Notes |
+|---|---|---|
+| `ant_count` | 50 | ants per iteration — compute budget knob |
+| `iterations` | 200 | compute budget knob |
+| `alpha` | 1.0 | pheromone exponent |
+| `beta` | 5.0 | heuristic exponent (1/distance) |
+| `rho` | 0.5 | evaporation rate in [0,1] |
+| `q` | 100.0 | total pheromone deposited per ant |
+| `seed` | 0 | 0 = non-deterministic; non-zero = reproducible |
 
 Initial population: one identity permutation plus `population_size - 1`
 random shuffles. Each generation: sort by cost, copy the elite, then fill with

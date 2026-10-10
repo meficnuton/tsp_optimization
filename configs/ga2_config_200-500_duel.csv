@@ -1,0 +1,11 @@
+# GA2 operator-duel - class 200-500. pop=200 gen=800 (same budget as the
+# 100-200 duel). Champion operator combos (random init) vs seeded/memetic
+# contenders. Run one process per config via --filter to parallelize.
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,selection,crossover,mutation,early_stop,init,two_opt
+combo_ox_inv10,200,800,0.10,0.90,2,3,tournament,OX,inversion,0,random,0
+combo_erx_inv10,200,800,0.10,0.90,2,3,tournament,ERX,inversion,0,random,0
+baseline_ox_swap,200,800,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+init_greedy,200,800,0.10,0.90,2,3,tournament,OX,swap,0,greedy,0
+init_rgreedy,200,800,0.10,0.90,2,3,tournament,OX,swap,0,rgreedy,0
+init_greedy_twoopt25,200,800,0.10,0.90,2,3,tournament,OX,swap,0,greedy,25
+twoopt10_random,200,800,0.10,0.90,2,3,tournament,OX,swap,0,random,10

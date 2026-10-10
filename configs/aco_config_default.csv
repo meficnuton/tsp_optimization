@@ -1,0 +1,17 @@
+# ACO benchmark configs (classic Ant System), one row per config.
+# Format: label,ants,iterations[,alpha,beta,rho,q]
+# - '#' comments, blank lines, and the header row are skipped.
+# - ants and iterations are REQUIRED (>= 1): the compute budget is part of
+#   the config row, so the CSV fully defines a benchmark (no recompile).
+# - Omitted/empty trailing fields fall back to defaults:
+#   alpha 1.0, beta 5.0, rho 0.5, q 100.0.
+# - Labels must be unique; a label starting with `baseline` fills the
+#   baselineACO% column.
+# - To compare configs fairly, keep ants x iterations equal and vary one
+#   knob at a time.
+label,ants,iterations,alpha,beta,rho,q
+baseline_default,50,200,1.0,5.0,0.5,100.0
+as_beta2,50,200,1.0,2.0,0.5,100.0
+as_rho2,50,200,1.0,5.0,0.2,100.0
+as_rho8,50,200,1.0,5.0,0.8,100.0
+as_alpha2,50,200,2.0,5.0,0.5,100.0

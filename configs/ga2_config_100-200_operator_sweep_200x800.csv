@@ -1,0 +1,34 @@
+# GA2 one-factor operator sweep - size class 100-200.
+# Goal: isolate the effect of each operator family. Every row shares the SAME
+# budget (pop=100, gen=400) and differs from the baseline in exactly ONE
+# operator (selection / crossover / mutation), so any gap difference is
+# attributable to that operator alone.
+# NOTE: unlike the older 200-500 sweep, sel_roulette/sel_rank really set the
+# roulette/rank selection here (the old file left "tournament" in that column).
+# Columns: label,population,generations,mutation_rate,crossover_rate,elitism,
+#          tournament,selection,crossover,mutation,early_stop,init,two_opt
+label,population,generations,mutation_rate,crossover_rate,elitism,tournament,selection,crossover,mutation,early_stop,init,two_opt
+
+# --- baseline ----------------------------------------------------------------
+baseline_tournament_ox_swap,200,800,0.10,0.90,2,3,tournament,OX,swap,0,random,0
+
+# --- selection sweep (one factor vs baseline) --------------------------------
+sel_roundrobin,200,800,0.10,0.90,2,3,roundrobin,OX,swap,0,random,0
+sel_roulette,200,800,0.10,0.90,2,3,roulette,OX,swap,0,random,0
+sel_rank,200,800,0.10,0.90,2,3,rank,OX,swap,0,random,0
+
+# --- crossover sweep (one factor vs baseline) --------------------------------
+cross_pmx,200,800,0.10,0.90,2,3,tournament,PMX,swap,0,random,0
+cross_cx,200,800,0.10,0.90,2,3,tournament,CX,swap,0,random,0
+cross_erx,200,800,0.10,0.90,2,3,tournament,ERX,swap,0,random,0
+
+# --- mutation sweep (one factor vs baseline) ---------------------------------
+mut_inversion,200,800,0.10,0.90,2,3,tournament,OX,inversion,0,random,0
+mut_insertion,200,800,0.10,0.90,2,3,tournament,OX,insertion,0,random,0
+mut_scramble,200,800,0.10,0.90,2,3,tournament,OX,scramble,0,random,0
+mut_random,200,800,0.10,0.90,2,3,tournament,OX,random,0,random,0
+
+# --- mutation-type x higher rate (structural mutations need pressure) --------
+mut_inversion30,200,800,0.30,0.90,2,3,tournament,OX,inversion,0,random,0
+mut_insertion30,200,800,0.30,0.90,2,3,tournament,OX,insertion,0,random,0
+mut_scramble30,200,800,0.30,0.90,2,3,tournament,OX,scramble,0,random,0

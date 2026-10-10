@@ -17,12 +17,15 @@ tsp/
 │   ├── SolverResult.h         # SolverResult struct
 │   ├── GreedySolver.h / .cpp      # nearest-neighbour greedy solver
 │   ├── GeneticAlgorithm.h / .cpp  # genetic algorithm solver (OX/PMX)
+│   ├── AntColonyOptimization.h / .cpp # ant system solver (classic AS)
 │   ├── _MatrixLoader_attached.h / .cpp  # MatrixLoader variant kept for reference
 │   │
 │   ├── benchmark/                 # benchmark framework
 │   │   └── GaBenchmark.h / .cpp   #   GA-vs-Greedy config benchmark building blocks
+│   │   └── AcoBenchmark.h / .cpp  #   ACO config loader (reuses GaBenchmark infra)
 │   │
-│   └── _benchmark_ga_configs.cpp  # MAIN harness: GA configs from CSV vs greedy
+│   ├── _benchmark_ga_configs.cpp  # MAIN harness: GA configs from CSV vs greedy
+│   └── _benchmark_aco_configs.cpp # ACO harness: ACO configs from CSV vs greedy
 │   
 │
 ├── configs/                       # GA benchmark config CSVs (one row per config)

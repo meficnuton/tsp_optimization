@@ -484,16 +484,24 @@ SolverResult GeneticAlgorithm2::solve(
         break;
     }
     case GeneticInitMode::RGREEDY: {
-        // 2-opt(greedy) seed + half randomized-greedy members + randoms.
+        // 1 2-opt(greedy) seed + ~15% randomized-greedy members + randoms.
         Tour seed = greedyTour(problem, 0);
         Tour seed_opt = seed;
         twoOptImprove(problem, seed_opt);
         push_tour(std::move(seed_opt));
-        const std::size_t half = settings.population_size / 2;
+
+        // SỬA ĐỔI: Giảm tỷ lệ heuristic xuống khoảng 15% (15/100) để giữ đa dạng di truyền
+        // Dùng std::max để đảm bảo luôn có ít nhất 1 cá thể nếu quần thể quá nhỏ
+        const std::size_t num_heuristic = std::max<std::size_t>(1, settings.population_size * 15 / 100); 
+        
         std::uniform_int_distribution<std::size_t> start_city(0, dimension - 1);
-        for (std::size_t i = 1; i <= half && i < settings.population_size; ++i) {
+        
+        // Duyệt thêm các cá thể randomized greedy cho đến khi đạt mốc num_heuristic
+        for (std::size_t i = 1; i < num_heuristic && i < settings.population_size; ++i) {
             push_tour(randomizedGreedyTour(problem, start_city(random), 5, random));
         }
+        
+        // Phần còn lại (85%) là ngẫu nhiên hoàn toàn để tăng không gian tìm kiếm
         for (std::size_t i = population.size(); i < settings.population_size; ++i) {
             Tour tour = base;
             std::shuffle(tour.begin(), tour.end(), random);
